@@ -1,6 +1,6 @@
 def new_game():
 	user_resp_list = []
-	correct_usr_ans = 0
+	score = 0
 	opt_num = 0
 	for key in questions:
 		print("----------------")
@@ -10,9 +10,9 @@ def new_game():
 		
 		usr_resp = input("Enter A, B, C or D: ").upper()
 		user_resp_list.append(usr_resp)
-		correct_usr_ans += check_ans(questions.get(key), usr_resp)
+		score += check_ans(questions.get(key), usr_resp)
 		opt_num += 1
-	display_score(correct_usr_ans, user_resp_list)
+	display_score(score, user_resp_list)
 		
 
 def check_ans(answer, usr_resp):
@@ -23,7 +23,7 @@ def check_ans(answer, usr_resp):
 		print("You're wrong. You lose 0.25 points")
 		return -0.25
 
-def display_score(correct_usr_ans, user_resp_list):
+def display_score(score, user_resp_list):
 	print()
 	print("RESULTS:")
 	print("Right answers: ", end="")
@@ -35,13 +35,16 @@ def display_score(correct_usr_ans, user_resp_list):
 	for i in user_resp_list:
 		print(i, end=" ")
 	print()
-	score = correct_usr_ans
 	print("Your score is "+str(score))
 	percent = (score/4)*100
 	print("Your percentage is "+str(percent)+"%")
 
 def play_again():
-	pass
+	response = input("Do you wanna play again? (yes or no): ").upper()
+	if response == "YES":
+		return True
+	else:
+		return False
 
 
 questions = {
@@ -59,3 +62,8 @@ options =[
 ]
 
 new_game()
+
+while play_again():
+	new_game()
+
+print("Goodbye kitten")
